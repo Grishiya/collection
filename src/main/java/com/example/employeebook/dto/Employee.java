@@ -1,10 +1,27 @@
-package com.example.employeebook;
+package com.example.employeebook.dto;
 
 import java.util.Objects;
 
 public class Employee {
     private String firstName;
     private String lastName;
+    private int department;
+    private double salary;
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public Employee(String firstName, String lastName, int department, double salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+        this.salary = salary;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -13,14 +30,11 @@ public class Employee {
     public String getLastName() {
         return lastName;
     }
-    public String getFullName(){
-        return firstName+lastName;
-    }
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
 
+    public String getFullName() {
+        return firstName + lastName;
     }
+
 
     @Override
     public String toString() {

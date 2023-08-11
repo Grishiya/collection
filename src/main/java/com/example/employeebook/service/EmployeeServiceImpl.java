@@ -1,12 +1,16 @@
-package com.example.employeebook;
+package com.example.employeebook.service;
 
+import com.example.employeebook.exception.EmployeeAlreadyAddedException;
+import com.example.employeebook.exception.EmployeeNotFoundException;
+import com.example.employeebook.exception.EmployeeStorageIsFullException;
+import com.example.employeebook.dto.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Map<String,Employee> employees;
+    private final Map<String, Employee> employees;
     private static final int EMPLOYEES_MAX_SIZE = 10;
 
     public EmployeeServiceImpl() {
@@ -14,13 +18,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName,int department,double salary) {
         if (employees.size() == EMPLOYEES_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
 
         }
 
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee( firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
         }
@@ -29,8 +33,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee removeEmployee(String firstName, String lastName,int department,double salary) {
+        Employee employee = new Employee(firstName,lastName,department, salary);
         if (employees.containsKey(employee.getFullName())) {
         return employees.remove(employee.getFullName());
 
@@ -38,8 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException("Cотрудник не найден");
     }
     @Override
-    public Employee searchEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee searchEmployee(String firstName, String lastName,int department,double salary) {
+        Employee employee = new Employee(firstName, lastName,department,salary);
         if (employees.containsKey(employee.getFullName())) {
             return employees.get(employee.getFullName());
 
