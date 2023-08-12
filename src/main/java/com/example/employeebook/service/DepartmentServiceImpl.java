@@ -5,7 +5,9 @@ import com.example.employeebook.exception.EmployeeNotFoundException;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DepartmentServiceImpl implements DepartmentService {
     private final EmployeeService employeeService;
@@ -32,11 +34,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Collection<Employee> getAllEmployeesDepartment(int department) {
-        return null;
+        return employeeService.findAll().stream()
+                .filter(employee -> employee.getDepartment()==department)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Map<Integer, Collection<Employee>> getAllGroupingByDepartment() {
-        return null;
+    public Map<Integer, List<Employee>> getAllGroupingByDepartment() {
+        return employeeService.findAll().stream()
+                .collect(Collectors.groupingBy(employee -> employee.getDepartment()));
     }
 }
