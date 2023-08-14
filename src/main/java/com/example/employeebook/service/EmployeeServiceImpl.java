@@ -23,7 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
 
         }
-
         Employee employee = new Employee( firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
