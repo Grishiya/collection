@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/departments")
@@ -27,9 +29,14 @@ public class DepartmentController {
     public Employee findMinSalaryEmployee(@RequestParam int department) {
         return departmentService.findMinSalaryEmployee( department );
     }
-    @GetMapping("/all-department-employee")
-    public Collection<Employee> getAllEmployeesDepartment(@RequestParam int department){
-        return departmentService.getAllEmployeesDepartment( department );
+    @GetMapping("/all")
+    public Map<Integer, List<Employee>> getAllGroupingByDepartment(@RequestParam int department){
+        return departmentService.getAllGroupingByDepartment();
+    }
+    @GetMapping(path = "/all", params = {"department"})
+    public Collection<Employee> getAllEmployeesDepartment(@RequestParam int department) {
+        return
+        departmentService.getAllEmployeesDepartment(department);
     }
 
 }
