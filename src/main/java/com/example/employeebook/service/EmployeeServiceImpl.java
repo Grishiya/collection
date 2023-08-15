@@ -18,39 +18,41 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName,int department,double salary) {
+    public Employee addEmployee(String firstName, String lastName, int department, double salary) {
         if (employees.size() == EMPLOYEES_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
 
         }
-        Employee employee = new Employee( firstName, lastName, department, salary);
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
         }
-        employees.put(employee.getFullName(),employee);
+        employees.put(employee.getFullName(), employee);
         return employee;
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName,int department,double salary) {
-        Employee employee = new Employee(firstName,lastName,department, salary);
+    public Employee removeEmployee(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
-        return employees.remove(employee.getFullName());
+            return employees.remove(employee.getFullName());
 
         }
         throw new EmployeeNotFoundException("Cотрудник не найден");
     }
+
     @Override
-    public Employee searchEmployee(String firstName, String lastName,int department,double salary) {
-        Employee employee = new Employee(firstName, lastName,department,salary);
+    public Employee searchEmployee(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             return employees.get(employee.getFullName());
 
         }
         throw new EmployeeNotFoundException("Сотрудник не найден");
     }
-@Override
-    public Collection<Employee> findAll(){
+
+    @Override
+    public Collection<Employee> findAll() {
         return Collections.unmodifiableCollection(employees.values());
-}
+    }
 }

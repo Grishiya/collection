@@ -19,33 +19,32 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Employee findMaxSalaryEmployee( int department) {
+    public Employee findMaxSalaryEmployee(int department) {
         return employeeService.findAll().stream()
-                .filter( employee -> employee.getDepartment() == department )
-                .max( Comparator.comparingDouble( empl -> empl.getSalary() ) )
-                .orElseThrow( () -> new EmployeeNotFoundException( "Нет сотрудников в отделе" + department ) );
+                .filter(employee -> employee.getDepartment() == department)
+                .max(Comparator.comparingDouble(empl -> empl.getSalary()))
+                .orElseThrow(() -> new EmployeeNotFoundException("Нет сотрудников в отделе" + department));
     }
-
 
 
     @Override
     public Employee findMinSalaryEmployee(int department) {
         return employeeService.findAll().stream()
-                .filter( employee -> employee.getDepartment() == department )
-                .min( Comparator.comparingDouble( empl -> empl.getSalary() ) )
-                .orElseThrow( () -> new EmployeeNotFoundException( "Нет сотрудников в отделе" + department ) );
+                .filter(employee -> employee.getDepartment() == department)
+                .min(Comparator.comparingDouble(empl -> empl.getSalary()))
+                .orElseThrow(() -> new EmployeeNotFoundException("Нет сотрудников в отделе" + department));
     }
 
     @Override
     public Collection<Employee> getAllEmployeesDepartment(int department) {
-       return employeeService.findAll().stream()
-               .filter( employee ->    employee.getDepartment()==department)
-                       .collect( Collectors.toList());
+        return employeeService.findAll().stream()
+                .filter(employee -> employee.getDepartment() == department)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Map<Integer, List<Employee>> getAllGroupingByDepartment() {
         return employeeService.findAll().stream()
-                .collect( Collectors.groupingBy( Employee::getDepartment ) );
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 }
