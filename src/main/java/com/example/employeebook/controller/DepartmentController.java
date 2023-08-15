@@ -2,6 +2,7 @@ package com.example.employeebook.controller;
 
 import com.example.employeebook.dto.Employee;
 import com.example.employeebook.service.DepartmentService;
+import com.example.employeebook.util.EmployeeNameValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ public class DepartmentController {
     @GetMapping("/max-salary")
     public Employee findMaxSalaryEmployee(@RequestParam int department) {
         return departmentService.findMaxSalaryEmployee(department);
+
     }
 
     @GetMapping("/min-salary")
@@ -39,6 +41,5 @@ public class DepartmentController {
     public Collection<Employee> getAllEmployeesDepartment(@RequestParam int department) {
         return
                 departmentService.getAllEmployeesDepartment(department);
-    }
-
+    } 
 }
