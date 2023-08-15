@@ -4,6 +4,7 @@ import com.example.employeebook.exception.EmployeeAlreadyAddedException;
 import com.example.employeebook.exception.EmployeeNotFoundException;
 import com.example.employeebook.exception.EmployeeStorageIsFullException;
 import com.example.employeebook.dto.Employee;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
 
         }
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = new Employee(firstName,lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
         }
