@@ -22,13 +22,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employees = new HashMap<>();
     }
 
-    @Override public Employee addEmployee(String firstName, String lastName, int department, double salary) {
+    @Override
+    public Employee addEmployee(String firstName, String lastName, int department, double salary) {
         if (employees.size() == EMPLOYEES_MAX_SIZE) {
             throw new EmployeeStorageIsFullException("Превышен лимит сотрудников");
 
         }
-        Employee employee = new Employee(firstName,lastName, department, salary);
-        String key=g
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        String key = g
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
         }
