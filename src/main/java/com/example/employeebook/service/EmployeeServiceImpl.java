@@ -1,12 +1,17 @@
 package com.example.employeebook.service;
 
+import com.example.employeebook.dto.Employee;
 import com.example.employeebook.exception.EmployeeAlreadyAddedException;
 import com.example.employeebook.exception.EmployeeNotFoundException;
 import com.example.employeebook.exception.EmployeeStorageIsFullException;
-import com.example.employeebook.dto.Employee;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.cache.interceptor.SimpleKeyGenerator.generateKey;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         }
         Employee employee = new Employee(firstName, lastName, department, salary);
+        String key = g
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException("В компании уже есть такой сотрудник.");
         }
@@ -33,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee removeEmployee(String firstName, String lastName, int department, double salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = employees.remove(g(firstName, lastName, department, salary);
         if (employees.containsKey(employee.getFullName())) {
             return employees.remove(employee.getFullName());
 

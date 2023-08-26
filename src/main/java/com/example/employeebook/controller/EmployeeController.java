@@ -2,10 +2,14 @@ package com.example.employeebook.controller;
 
 import com.example.employeebook.service.EmployeeService;
 import com.example.employeebook.dto.Employee;
+import com.example.employeebook.util.EmployeeNameValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,6 +23,7 @@ public class EmployeeController {
     @GetMapping("/add")
     public Employee add(@RequestParam String firstName, @RequestParam String lastName,
                         @RequestParam int department, @RequestParam double salary) {
+        EmployeeNameValidator.checkName( firstName,lastName );
         return employeeService.addEmployee(firstName, lastName, department, salary);
 
     }
@@ -26,13 +31,19 @@ public class EmployeeController {
     @GetMapping("/remove")
     public Employee remove(@RequestParam String firstName, @RequestParam String lastName,
                            @RequestParam int department, @RequestParam double salary) {
+        EmployeeNameValidator.checkName( firstName,lastName );
         return employeeService.addEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/find")
     public Employee find(@RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam int department, @RequestParam double salary) {
-        return employeeService.addEmployee(firstName, lastName, department, salary);
+        EmployeeNameValidator.checkName( firstName,lastName );
+        return employeeService.searchEmployee(firstName, lastName, department, salary);
+    }
+    @GetMapping
+    public Collection<Employee> findAll(){
+        return employeeService.findAll();
     }
 
 }
